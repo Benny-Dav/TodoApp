@@ -10,9 +10,11 @@ const AddTodo = () => {
         // Collect form input
         const formData = new FormData(event.target);
         // Post data to todo api
-        await axios.post("https://todoapi-9uev.onrender.com/todos",{
-            title:formData.get("todo")
-        });
+        await axios.post(`${import.meta.env.VITE_BASE_URL}/todos`,formData);
+            
+        //     {
+        //     title:formData.get("todo")
+        // });    was removed because with file selection, object cannot be specified, only formData can be sent
 
         // Goto the homepage
         navigate("/");
@@ -21,7 +23,9 @@ const AddTodo = () => {
         <div>
             <h1>Add a new Todo</h1>
             <form onSubmit={saveTodo}>
-                <input type="text" placeholder="Enter your todo" required name="todo"/>
+                {/* changed input name from "todo" to "title" because with adding a file, you can't send objects. Sending the whole form, so name of input should correspond */}
+                <input type="text" placeholder="Enter your todo" required name="title"/>  /
+                <input type="file" required name="icon"/>
                 <button type="submit">Save</button>
             </form>
         </div>
